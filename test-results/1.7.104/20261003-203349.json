@@ -1,0 +1,59 @@
+{
+  "launch": "2026-10-03T20:33:49",
+  "result": "PASS",
+  "skse": {
+    "skse": "2.3.1",
+    "runtime": "1.7.104.0",
+    "plugins": [
+      {
+        "name": "HelloSKSE",
+        "status": "loaded correctly",
+        "loaded": true
+      }
+    ],
+    "load_errors": [],
+    "messages": [
+      0,
+      1,
+      6,
+      8
+    ]
+  },
+  "plugin_logs": {
+    "HelloSKSE": {
+      "problems": [],
+      "markers": [
+        "[load] HelloSKSE v0.1.0.0",
+        "[load] runtime Skyrim AE 1.7.104.0",
+        "[load] skse 2.3.1",
+        "[load] OK",
+        "[lifecycle] kPostLoad",
+        "[lifecycle] kPostPostLoad",
+        "[lifecycle] kInputLoaded",
+        "[lifecycle] kDataLoaded",
+        "[hello] main menu: Hello World from HelloSKSE! (Skyrim AE 1.7.104.0)",
+        "[addrlib] OK",
+        "[hello] loading menu sink registered",
+        "[hello] loading screen closed: Hello World from HelloSKSE! (Skyrim AE 1.7.104.0)"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "status": "PASS",
+      "message": "runtime 1.7.104.0, SKSE 2.3.1"
+    },
+    {
+      "status": "PASS",
+      "message": "main menu reached (kDataLoaded dispatched)"
+    },
+    {
+      "status": "PASS",
+      "message": "plugin HelloSKSE: loaded correctly"
+    },
+    {
+      "status": "PASS",
+      "message": "HelloSKSE.log: no errors or warnings"
+    }
+  ]
+}

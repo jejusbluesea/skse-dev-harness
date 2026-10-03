@@ -60,7 +60,7 @@ MO2 버전은 `2.5.2`이다.
 |---|---|---|---|---|
 | `00 - Skyrim` | 비활성화 | 비활성화 | 없음 | 일반 `SkyrimSE.exe` 기준 Vanilla 확인 |
 | `01 - SKSE Base` | 활성화 | 활성화 | 없음 | baseline. 변경하지 않는다 |
-| `02 - Dev Sanity` | 활성화 | 활성화 | 활성화 | 개발 모드 테스트. 현재 선택된 프로필 |
+| `02 - Dev Sanity` | 활성화 | 활성화 | 제거됨 | 개발 모드 테스트. 현재 선택된 프로필 |
 
 ## SKSE Scripts와 Address Library
 
@@ -102,7 +102,6 @@ SKSE\Plugins\versionlib-1-7-104-0.bin
 - Address Library v13에 세 런타임용 BIN 파일이 존재함
 - `00 - Skyrim`에서 SKSE Scripts 및 Address Library가 비활성화됨
 - `tools/check_env.py`가 세 런타임의 `01 - SKSE Base`, `02 - Dev Sanity`에서 모두 PASS
-- `HelloSKSE.dll`이 세 MO2 인스턴스의 `[DEV] HelloSKSE`에 배치됨
 
 ## 개발 환경 (구축 완료)
 
@@ -120,6 +119,7 @@ SKSE\Plugins\versionlib-1-7-104-0.bin
 tools\build.ps1 [-Mod HelloSKSE] [-Clean]          빌드 후 mods\<Mod>\dist\SKSE\Plugins\ 에 staging
 python tools\deploy.py [--mod ..] [--runtime ..]   mods\<Mod>\dist -> 각 MO2의 mods\[DEV] <Mod>\ 
 python tools\setup_profiles.py --dev-mod <Mod>     프로필 구성 (MO2 종료 상태에서만, 재실행 안전)
+python tools\undeploy.py --mod <Mod>               [DEV] 모드를 프로필과 MO2에서 제거 (폴더는 휴지통으로)
 python tools\check_env.py [--runtime ..] [--profile ..]    실행 전 정적 검증
 python tools\parse_skse_log.py --expect <Mod> --save       실행 후 로그 검증, test-results\<runtime>\ 에 보관
 ```
@@ -135,11 +135,20 @@ python tools\parse_skse_log.py --expect <Mod> --save       실행 후 로그 검
 - 로딩 화면이 닫힐 때마다 같은 문구를 HUD 알림과 콘솔에 출력 (`coc qasmoke`에서도 동작)
 - 1.5.97 미만 런타임에서는 오류를 남기고 로드를 거부
 
+## HelloSKSE v0.1.0 검증 결과 (2026-10-03)
+
+| 런타임 | 결과 | 근거 |
+|---|---|---|
+| `1.5.97` | USER-VERIFIED | 사용자 인게임 확인. 로그는 경로 제거 옵션 추가 전 빌드로 PASS 확인 |
+| `1.6.1170` | USER-VERIFIED | 사용자 인게임 확인. 로그는 다음 실행에 덮어써져 보관되지 않음 |
+| `1.7.104` | USER-VERIFIED + 로그 PASS | `test-results/1.7.104/20261003-203349.json` |
+
+- `mods/HelloSKSE`의 `v0.1.0`을 `main`에 병합했다.
+- 테스트용 모드이므로 `tools/undeploy.py --mod HelloSKSE`로 MO2에서 제거한다. `02 - Dev Sanity` 프로필은 다음 모드를 위해 남겨 둔다.
+
 ## 남은 작업
 
-1. **인게임 검증 (NOT VERIFIED)**: 세 런타임 각각 `02 - Dev Sanity`에서 SKSE로 실행 → 메인 메뉴 콘솔에서 Hello 문구 확인 → `coc qasmoke` 후 HUD 알림 확인 → 종료 후 `parse_skse_log.py --expect HelloSKSE --save`.
-2. 검증이 끝나면 `mods/HelloSKSE`의 `v0.1.0`을 `main`에 병합한다.
-3. 검증이 끝나면 실제 모드 개발로 넘어간다.
+1. 실제 모드 개발을 시작한다. 새 모드는 `mods/<모드명>/`에 독립 저장소로 만들고 `mods/HelloSKSE`의 빌드 설정을 출발점으로 삼는다.
 
 ## 운영상 주의 사항
 
