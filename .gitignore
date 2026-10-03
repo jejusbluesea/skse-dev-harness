@@ -1,0 +1,12 @@
+# Mods are separate repositories (one per mod), cloned under mods/
+/mods/
+
+# MO2 profile backups written by tools/setup_profiles.py
+/backups/
+
+# MO2 shortcuts: machine-specific, and .lnk files embed the local machine name
+/Mod Organizer - 1.5.97 SE.lnk
+/Mod Organizer - 1.6.1170 AE.lnk
+/Mod Organizer - 1.7.104 AE.lnk
+
+/tools/__pycache__/
